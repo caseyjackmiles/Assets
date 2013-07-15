@@ -24,8 +24,7 @@ public class EnemySpawnPoint : MonoBehaviour {
 	
 	void SpawnNewEnemy () {
 		
-		string spawnType = "Spawned new " + enemy.name;
-		Debug.Log(spawnType);
+		Debug.Log("Called SpawnNewEnemy");
 		
 		if(enemiesSpawned.Count < enemiesToSpawn){
 			GameObject newEnemy = (GameObject) Instantiate(enemy, transform.position, transform.rotation);

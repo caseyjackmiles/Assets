@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Player_Shoot : MonoBehaviour {
-	public GameObject projectile;
+	public Rigidbody projectile;
 	
 	public float speed = 1000;
 	private PlayerAnimationController animation;
@@ -24,10 +24,9 @@ public class Player_Shoot : MonoBehaviour {
 			//Player_Movement movement = GetComponent(Player_Movement); NOT WORKING.
 			
 			//Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation *  Quaternion.Euler(90, 0, 0)) as Rigidbody;
-			GameObject instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation) as GameObject;
+			Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation) as Rigidbody;
 			Vector3 shootVector = Vector3.zero;
 			
-			//create movement
 			if(animation.GetState() == PlayerAnimationController.State.StandingLeft || animation.GetState() == PlayerAnimationController.State.WalkLeft){
 				//shoot left
 				shootVector = Vector3.left;

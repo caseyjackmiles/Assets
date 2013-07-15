@@ -8,7 +8,7 @@ public class Level1Enemy : EnemyBase {
 	// Override base speed for slower movement
 	public override float movementSpeed
 	{
-		get { return 1.5F; }
+		get { return .3F; }
 		set { }
 	}
 }
