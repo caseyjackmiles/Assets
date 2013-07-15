@@ -4,7 +4,7 @@ using System.Collections;
 public class Player_Shoot : MonoBehaviour {
 	public Rigidbody projectile;
 	
-	public float speed = 20;
+	public float speed = 1000;
 	private PlayerAnimationController animation;
 	//enum for character state
    
@@ -22,23 +22,24 @@ public class Player_Shoot : MonoBehaviour {
 			
 			//Player_Movement movement = GetComponent(Player_Movement); NOT WORKING.
 			
-			Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation *  Quaternion.Euler(270, 0, 0)) as Rigidbody;
+			Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation *  Quaternion.Euler(90, 0, 0)) as Rigidbody;
+			Vector3 shootVector = Vector3.zero;
 			
 			//create movement
 			if(animation.GetState() == PlayerAnimationController.State.StandingLeft || animation.GetState() == PlayerAnimationController.State.WalkLeft){
 				//shoot left
-				instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(-speed,0,0));
+				shootVector = Vector3.left;
 			}
 			else if(animation.GetState() == PlayerAnimationController.State.StandingRight || animation.GetState() == PlayerAnimationController.State.WalkRight){
-				instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(speed,0,0)); 
+				shootVector = Vector3.right;
 			}
 			else if(animation.GetState() == PlayerAnimationController.State.StandingAway || animation.GetState() == PlayerAnimationController.State.WalkAway){
-				instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(0,0,speed)); 
+				shootVector = Vector3.back;
 			}
 			else{
-				instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(0,0,-speed)); 
+				shootVector = Vector3.forward;
 			}
-			
+			instantiatedProjectile.velocity = shootVector * speed;
 
 			//disable collisions between object and player
 			//Physics.IgnoreCollision(instantiatedProjectile.collider, transform.root.collider);
