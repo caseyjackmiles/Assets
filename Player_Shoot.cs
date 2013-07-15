@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Player_Shoot : MonoBehaviour {
-	public Rigidbody projectile;
+	public GameObject projectile;
 	
 	public float speed = 1000;
 	private PlayerAnimationController animation;
@@ -11,6 +11,7 @@ public class Player_Shoot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animation = GetComponent<PlayerAnimationController>();
+		//projectile = GameObject.FindWithTag("bullet1");
 	}
 	
 	// Update is called once per frame
@@ -22,7 +23,8 @@ public class Player_Shoot : MonoBehaviour {
 			
 			//Player_Movement movement = GetComponent(Player_Movement); NOT WORKING.
 			
-			Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation *  Quaternion.Euler(90, 0, 0)) as Rigidbody;
+			//Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation *  Quaternion.Euler(90, 0, 0)) as Rigidbody;
+			GameObject instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation) as GameObject;
 			Vector3 shootVector = Vector3.zero;
 			
 			//create movement
@@ -39,7 +41,10 @@ public class Player_Shoot : MonoBehaviour {
 			else{
 				shootVector = Vector3.forward;
 			}
-			instantiatedProjectile.velocity = shootVector * speed;
+			
+			instantiatedProjectile.rigidbody.AddForce(shootVector * speed, ForceMode.VelocityChange);
+			
+			
 
 			//disable collisions between object and player
 			//Physics.IgnoreCollision(instantiatedProjectile.collider, transform.root.collider);
